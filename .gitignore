@@ -1,0 +1,21 @@
+# OS files
+.DS_Store
+Thumbs.db
+
+# Windows shortcut files
+*.lnk
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
+
+# Build outputs
+dist/
+build/
