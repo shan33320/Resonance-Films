@@ -87,6 +87,15 @@ section {
   line-height: 1.9;
 }
 
+.line-friend-link {
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.line-friend-link img {
+  display: block;
+}
+
 .products {
   background: var(--light);
 }
@@ -139,6 +148,36 @@ section {
 .btn-more:hover {
   color: #fff;
   background: var(--coffee);
+}
+
+.embedded-content {
+  background: #fff;
+}
+
+.embed-box {
+  width: 100%;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 2px solid var(--line);
+  background: #fff;
+}
+
+.facebook-box {
+  background: #fff;
+}
+
+.embed-frame {
+  display: block;
+  width: 100%;
+  border: 0;
+}
+
+.facebook-frame {
+  height: 645px;
+}
+
+.form-frame {
+  height: 645px;
 }
 
 .site-footer {
@@ -226,6 +265,11 @@ section {
 
   .product-card .card-img-top {
     height: 190px;
+  }
+
+  .embed-box {
+    border-right: 0;
+    border-left: 0;
   }
 
   .social-links {
