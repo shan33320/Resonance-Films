@@ -8,6 +8,91 @@
   <title>洪佩珊｜內容企劃與角色 IP 作品集</title>
   <link rel="stylesheet" href="../CSS/style.css">
   <link rel="stylesheet" href="portfolio.css">
+  <style>
+    .reader-footer .footer-contact {
+      appearance: none;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+    .contact-dialog {
+      width: min(92vw, 520px);
+      padding: 0;
+      border: 2px solid var(--coffee, #3a2020);
+      border-radius: 0;
+      color: var(--coffee, #3a2020);
+      background: #fffafa;
+      box-shadow: 0 24px 70px rgba(58, 32, 32, .28);
+    }
+    .contact-dialog::backdrop {
+      background: rgba(35, 23, 23, .62);
+    }
+    .contact-panel {
+      position: relative;
+      padding: 1.6rem;
+    }
+    .contact-panel h2 {
+      margin: 0 2rem .7rem 0;
+      font-size: 1.35rem;
+    }
+    .contact-panel p {
+      line-height: 1.7;
+    }
+    .contact-email {
+      display: block;
+      margin: 1rem 0;
+      padding: .85rem 1rem;
+      color: var(--coffee, #3a2020);
+      background: #f3e8e8;
+      font-weight: 800;
+      text-align: center;
+      word-break: break-all;
+    }
+    .contact-actions {
+      display: flex;
+      gap: .7rem;
+      margin-top: 1rem;
+    }
+    .contact-action {
+      flex: 1;
+      padding: .75rem 1rem;
+      border: 2px solid var(--coffee, #3a2020);
+      color: var(--coffee, #3a2020);
+      background: #fff;
+      font: inherit;
+      font-weight: 800;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .contact-action.primary {
+      color: #fff;
+      background: var(--coffee, #3a2020);
+    }
+    .contact-close {
+      position: absolute;
+      top: .8rem;
+      right: .9rem;
+      border: 0;
+      color: var(--coffee, #3a2020);
+      background: transparent;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+    .copy-status {
+      min-height: 1.5em;
+      margin: .7rem 0 0;
+      font-size: .9rem;
+      text-align: center;
+    }
+    @media (max-width: 520px) {
+      .contact-actions { flex-direction: column; }
+    }
+  </style>
   <script src="portfolio.js" defer></script>
 </head>
 <body>
@@ -25,6 +110,45 @@
   </header>
   <p class="reader-hint">內容企劃與角色 IP 作品集 · 原始解析度 · 點選頁面可開啟原圖</p>
   <main id="pages" aria-label="40 頁作品集"></main>
-  <noscript>此閱讀頁需要 JavaScript。<a href="page-01.png">開啟封面原圖</a></noscript>  <footer class="reader-footer">洪佩珊｜內容企劃與角色 IP 作品集 <a href="../">回到偏心映畫</a> <a href="mailto:shan33320@gmail.com?subject=%E4%BD%9C%E5%93%81%E9%9B%86%E5%90%88%E4%BD%9C%E6%B4%BD%E8%A9%A2%EF%BD%9C%E6%B4%AA%E4%BD%A9%E7%8F%8A">✉ 工作邀約</a> <a href="#p1">回到封面 ↑</a></footer>
+  <noscript>此閱讀頁需要 JavaScript。<a href="page-01.png">開啟封面原圖</a></noscript>  <footer class="reader-footer">洪佩珊｜內容企劃與角色 IP 作品集 <a href="../">回到偏心映畫</a> <button class="footer-contact" id="contact-open" type="button">✉ 工作邀約</button> <a href="#p1">回到封面 ↑</a></footer>
+
+  <dialog class="contact-dialog" id="contact-dialog" aria-labelledby="contact-title">
+    <div class="contact-panel">
+      <button class="contact-close" id="contact-close" type="button" aria-label="關閉">×</button>
+      <h2 id="contact-title">工作邀約與合作聯絡</h2>
+      <p>如有內容企劃、影視娛樂行銷、角色 IP 或 AI 多媒體相關合作，歡迎透過電子郵件與我聯絡。</p>
+      <a class="contact-email" href="mailto:shan33320@gmail.com?subject=%E4%BD%9C%E5%93%81%E9%9B%86%E5%90%88%E4%BD%9C%E6%B4%BD%E8%A9%A2%EF%BD%9C%E6%B4%AA%E4%BD%A9%E7%8F%8A">shan33320@gmail.com</a>
+      <div class="contact-actions">
+        <button class="contact-action" id="copy-email" type="button">複製信箱</button>
+        <a class="contact-action primary" href="mailto:shan33320@gmail.com?subject=%E4%BD%9C%E5%93%81%E9%9B%86%E5%90%88%E4%BD%9C%E6%B4%BD%E8%A9%A2%EF%BD%9C%E6%B4%AA%E4%BD%A9%E7%8F%8A">開啟郵件</a>
+      </div>
+      <p class="copy-status" id="copy-status" aria-live="polite"></p>
+    </div>
+  </dialog>
+
+  <script>
+    (() => {
+      const dialog = document.getElementById("contact-dialog");
+      const openButton = document.getElementById("contact-open");
+      const closeButton = document.getElementById("contact-close");
+      const copyButton = document.getElementById("copy-email");
+      const copyStatus = document.getElementById("copy-status");
+      const email = "shan33320@gmail.com";
+
+      openButton.addEventListener("click", () => dialog.showModal());
+      closeButton.addEventListener("click", () => dialog.close());
+      dialog.addEventListener("click", (event) => {
+        if (event.target === dialog) dialog.close();
+      });
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(email);
+          copyStatus.textContent = "已複製信箱，可以直接貼到郵件中。";
+        } catch (error) {
+          copyStatus.textContent = "信箱：" + email;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
