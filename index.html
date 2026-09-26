@@ -7,6 +7,59 @@
     <link href="bootstrap-5.0.2-dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="CSS/style.css">
+    <style>
+      .portfolio-notice .modal-content {
+        border: 2px solid var(--coffee);
+        border-radius: 0;
+        box-shadow: 0 24px 70px rgba(58, 32, 32, .28);
+      }
+      .portfolio-notice .modal-header {
+        padding: 1.5rem 1.75rem 1rem;
+        border-bottom: 1px solid #eadada;
+      }
+      .portfolio-notice .modal-title {
+        color: var(--coffee);
+        font-weight: 900;
+      }
+      .portfolio-notice .modal-body {
+        padding: 1rem 1.75rem;
+        color: #4c3b3b;
+        line-height: 1.8;
+      }
+      .portfolio-notice .modal-footer {
+        gap: .6rem;
+        padding: 0 1.75rem 1.6rem;
+        border-top: 0;
+      }
+      .portfolio-notice .btn {
+        border-radius: 0;
+        font-weight: 800;
+      }
+      .portfolio-notice .btn-enter {
+        border: 2px solid var(--line);
+        color: var(--coffee);
+        background: #fff;
+      }
+      .portfolio-notice .btn-portfolio {
+        border: 2px solid var(--coffee);
+        color: #fff;
+        background: var(--coffee);
+      }
+      .portfolio-notice .btn-portfolio:hover {
+        border-color: var(--red);
+        color: #fff;
+        background: var(--red);
+      }
+      @media (max-width: 575.98px) {
+        .portfolio-notice .modal-footer {
+          align-items: stretch;
+          flex-direction: column;
+        }
+        .portfolio-notice .modal-footer .btn {
+          width: 100%;
+        }
+      }
+    </style>
       <!-- Google tag (gtag.js) GA4全域頁面瀏覽追蹤-->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9V6BPW29G4"></script>
     <script>
@@ -206,6 +259,47 @@
       <a href="#top" class="to-top" aria-label="回到頂部"><i class="bi bi-rocket-fill"></i></a>
     </footer>
 
+        <div class="modal fade portfolio-notice" id="portfolioNotice" tabindex="-1" aria-labelledby="portfolioNoticeTitle" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 class="modal-title fs-4" id="portfolioNoticeTitle">作品展示說明</h2>
+          </div>
+          <div class="modal-body">
+            <p>本網站為「偏心映畫」品牌概念與課堂實作作品，僅供個人作品展示，非正式營運或商業服務。</p>
+            <p class="mb-0">頁面中的活動與表單皆為企劃示範，請勿填寫真實個人資料。</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-enter" data-bs-dismiss="modal">進入概念網站</button>
+            <a class="btn btn-portfolio" href="portfolio/" id="portfolioNoticeLink">查看創作者作品集</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="bootstrap-5.0.2-dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      (() => {
+        const noticeKey = "resonancePortfolioNoticeSeen";
+        if (sessionStorage.getItem(noticeKey) === "1") return;
+
+        const noticeElement = document.getElementById("portfolioNotice");
+        const portfolioLink = document.getElementById("portfolioNoticeLink");
+        const notice = new bootstrap.Modal(noticeElement, {
+          backdrop: "static",
+          keyboard: false
+        });
+
+        noticeElement.addEventListener("hidden.bs.modal", () => {
+          sessionStorage.setItem(noticeKey, "1");
+        }, { once: true });
+
+        portfolioLink.addEventListener("click", () => {
+          sessionStorage.setItem(noticeKey, "1");
+        });
+
+        notice.show();
+      })();
+    </script>
   </body>
 </html>
